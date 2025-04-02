@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="WordsBook\bookLists.json" />
+	  <None Remove="WordsBook\CET4luan_2.json" />
+	  <None Remove="WordsBook\CET6_2.json" />
+	  <None Remove="WordsBook\KaoYanluan_1.json" />
+	  <None Remove="WordsBook\KaoYan_1.json" />
+	  <None Remove="WordsBook\KaoYan_2.json" />
+	  <None Remove="WordsBook\KaoYan_3.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="WordsBook\*.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="HandyControl" Version="3.4.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="System.Management" Version="8.0.0" />
+	</ItemGroup>
+</Project>
