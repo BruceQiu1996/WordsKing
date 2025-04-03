@@ -1,4 +1,8 @@
-﻿namespace WordsKing.ViewModels
+﻿using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
+using WordsKing.Windows;
+
+namespace WordsKing.ViewModels
 {
     public class BookListItemViewModel
     {
@@ -8,6 +12,17 @@
         public int WordNum { get; set; }
         public string Cover { get; set; }
         public IEnumerable<Tag> Tags { get; set; }
+
+        public RelayCommand OpenBookCommand { get; set; }
+        public BookListItemViewModel()
+        {
+            OpenBookCommand = new RelayCommand(() => 
+            {
+                var window = App.ServiceProvider.GetRequiredService<BookWindow>();
+                window.ViewModel.BookListItemViewModel = this;
+                window.Show();
+            });
+        }
     }
 
     public class Tag 

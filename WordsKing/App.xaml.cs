@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Windows;
 using WordsKing.ViewModels;
+using WordsKing.Windows;
 
 namespace WordsKing
 {
@@ -23,6 +24,9 @@ namespace WordsKing
             {
                 service.AddSingleton<MainWindow>();
                 service.AddSingleton<MainWindowViewModel>();
+
+                service.AddTransient<BookWindow>();
+                service.AddTransient<BookViewModel>();
             });
 
             host = builder.Build();
