@@ -1,0 +1,287 @@
+﻿<Page x:Class="WordsKing.Pages.StudyWordPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:local="clr-namespace:WordsKing.Pages"
+      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:behavior="clr-namespace:WordsKing.Resources.Behaviors"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StudyWordPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="280"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
+            <TextBlock Text="{Binding WordDesc}" FontSize="18" Margin="5" Background="#eee" Padding="8"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                
+            </StackPanel>
+        </StackPanel>
+        <Border Grid.Column="0" Grid.Row="1" Background="#eee" Effect="{StaticResource EffectShadow1}"
+                CornerRadius="3">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Word}" Grid.Row="0" Grid.Column="0"
+                   FontSize="55" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   ></TextBlock>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <hc:Shield Subject="英式音标" Status="{Binding Ukphone}" Color="#1182c3" 
+                               Margin="0 0 5 0"
+                               Cursor="Hand"/>
+                    <Label Name="uklabel" Cursor="Hand">
+                        <Path Data="{StaticResource laba}" Width="18"
+                              Height="18" Stretch="Uniform" Stroke="{Binding ElementName=uklabel,Path=BorderBrush}">
+                        </Path>
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="#aaa"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="BorderBrush" Value="#999"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                    <hc:Shield Subject="美式音标" Status="{Binding Usphone}"
+                               Margin="5 0 0 0"
+                               Cursor="Hand"
+                               Color="#d8624c" />
+                    <Label Name="uslabel" Cursor="Hand">
+                        <Path Data="{StaticResource laba}"  Width="18"
+                              Height="18" Stretch="Uniform"  Stroke="{Binding ElementName=uslabel,Path=BorderBrush}">
+                        </Path>
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="#aaa"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="False">
+                                        <Setter Property="BorderBrush" Value="#999"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </StackPanel>
+
+                <hc:ScrollViewer VerticalScrollBarVisibility="Visible"
+                                 hc:ScrollViewer.IsPenetrating="True" CanMouseWheel="True"
+                                 RequestBringIntoView="ScrollViewer_RequestBringIntoView"  
+                                 Background="Transparent">
+                    <ListBox ItemsSource="{Binding Trans,UpdateSourceTrigger=PropertyChanged}" 
+                             Background="Transparent"
+                             BorderThickness="0 0 0 0"
+                             VerticalAlignment="Center"
+                             Style="{StaticResource ListBoxBaseStyle}"
+                             ScrollViewer.CanContentScroll="False"
+                             ScrollViewer.IsDeferredScrollingEnabled="True"
+                             ScrollViewer.VerticalScrollBarVisibility="Visible"
+                             PreviewMouseWheel="ListView_PreviewMouseWheel">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="OverridesDefaultStyle" Value="True" />
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <hc:Card BorderThickness="0" Effect="{DynamicResource EffectShadow1}" 
+                                                     Background="#eee"
+                                                     Margin="50 2" ToolTip="{Binding Desc}">
+                                                <hc:Card.Footer>
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock TextWrapping="Wrap"  
+                                                                   Text="{Binding TranCn}" 
+                                                                   Cursor="Hand"
+                                                                   HorizontalAlignment="Left">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockDefaultPrimary}">
+                                                                    <Style.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="TextDecorations" Value="Underline"></Setter>
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsMouseOver" Value="False">
+                                                                            <Setter Property="TextDecorations" Value="None"></Setter>
+                                                                        </Trigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+                                                        <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockDefaultSecLight}" 
+                                                               TextTrimming="CharacterEllipsis" 
+                                                               Text="{Binding Pos}" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                                    </StackPanel>
+                                                </hc:Card.Footer>
+                                            </hc:Card>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </hc:ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="2" Grid.RowSpan="3" Background="#eee" Margin="10 0  0 0" 
+                Effect="{StaticResource EffectShadow1}">
+            <hc:ScrollViewer VerticalScrollBarVisibility="Visible"
+                 hc:ScrollViewer.IsPenetrating="True" CanMouseWheel="True"
+                 RequestBringIntoView="ScrollViewer_RequestBringIntoView"  
+                 Background="Transparent">
+                <StackPanel Orientation="Vertical">
+                    <GroupBox Style="{StaticResource GroupBoxTab}" Margin="2">
+                        <GroupBox.HeaderTemplate>
+                            <ItemContainerTemplate>
+                                <TextBlock Text="例句" FontWeight="Heavy"  FontSize="18"></TextBlock>
+                            </ItemContainerTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <ListBox ItemsSource="{Binding Sentences,UpdateSourceTrigger=PropertyChanged}" 
+                             Background="Transparent"
+                             BorderThickness="0 0 0 0"
+                             Style="{StaticResource ListBoxBaseStyle}"
+                             ScrollViewer.CanContentScroll="False"
+                             ScrollViewer.IsDeferredScrollingEnabled="True"
+                             ScrollViewer.VerticalScrollBarVisibility="Visible"
+                             PreviewMouseWheel="ListView_PreviewMouseWheel">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <hc:Card BorderThickness="0" Effect="{DynamicResource EffectShadow1}" 
+                                                     Background="#eee" ToolTip="{Binding Desc}" Margin="1">
+                                                    <hc:Card.Footer>
+                                                        <StackPanel Margin="2">
+                                                            <TextBlock TextWrapping="Wrap"
+                                                                       Cursor="Hand"
+                                                                       FontSize="14"
+                                                                       HorizontalAlignment="Left">
+                                                                 <behaviors:Interaction.Behaviors>
+                                                                     <behavior:HighlightTextBehavior HighlightWord="{Binding DataContext.Word,RelativeSource={RelativeSource AncestorType=ListBox,Mode=FindAncestor}}"
+                                                                                                     Text="{Binding SContent}"></behavior:HighlightTextBehavior>
+                                                                  </behaviors:Interaction.Behaviors>
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockDefaultPrimary}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="TextDecorations" Value="Underline"></Setter>
+                                                                            </Trigger>
+                                                                            <Trigger Property="IsMouseOver" Value="False">
+                                                                                <Setter Property="TextDecorations" Value="None"></Setter>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                            <TextBlock TextWrapping="Wrap" Style="{DynamicResource TextBlockDefaultSecLight}" 
+                                                                   TextTrimming="CharacterEllipsis" 
+                                                                   FontSize="14"
+                                                                   Text="{Binding SCn}" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                                        </StackPanel>
+                                                    </hc:Card.Footer>
+                                                </hc:Card>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </GroupBox>
+
+                    <GroupBox Style="{StaticResource GroupBoxTab}" Margin="2">
+                        <GroupBox.HeaderTemplate>
+                            <ItemContainerTemplate>
+                                <TextBlock Text="短句" FontWeight="Heavy"  FontSize="18"></TextBlock>
+                            </ItemContainerTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <ListBox ItemsSource="{Binding Phrases,UpdateSourceTrigger=PropertyChanged}" 
+                                 Background="Transparent"
+                                 BorderThickness="0 0 0 0"
+                                 Style="{StaticResource ListBoxBaseStyle}"
+                                 ScrollViewer.CanContentScroll="False"
+                                 ScrollViewer.IsDeferredScrollingEnabled="True"
+                                 ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                 PreviewMouseWheel="ListView_PreviewMouseWheel">
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"></StackPanel>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                <hc:Card BorderThickness="0" Effect="{DynamicResource EffectShadow1}" Background="#eee" Margin="1">
+                                                    <hc:Card.Footer>
+                                                        <StackPanel Margin="2">
+                                                            <TextBlock TextWrapping="Wrap"
+                                                                       Cursor="Hand"
+                                                                       FontSize="14"
+                                                                       HorizontalAlignment="Left">
+                                                                 <behaviors:Interaction.Behaviors>
+                                                                     <behavior:HighlightTextBehavior HighlightWord="{Binding DataContext.Word,RelativeSource={RelativeSource AncestorType=ListBox,Mode=FindAncestor}}"
+                                                                                                     Text="{Binding PContent}"></behavior:HighlightTextBehavior>
+                                                                  </behaviors:Interaction.Behaviors>
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockDefaultPrimary}">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                                <Setter Property="TextDecorations" Value="Underline"></Setter>
+                                                                            </Trigger>
+                                                                            <Trigger Property="IsMouseOver" Value="False">
+                                                                                <Setter Property="TextDecorations" Value="None"></Setter>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                            <TextBlock TextWrapping="Wrap" Style="{DynamicResource TextBlockDefaultSecLight}" 
+                                                   TextTrimming="CharacterEllipsis" 
+                                                   FontSize="14"
+                                                   Text="{Binding PCn}" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                                        </StackPanel>
+                                                    </hc:Card.Footer>
+                                                </hc:Card>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                        </ListBox>
+                    </GroupBox>
+                </StackPanel>
+            </hc:ScrollViewer>
+        </Border>
+    </Grid>
+</Page>

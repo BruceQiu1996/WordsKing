@@ -8,49 +8,20 @@
         xmlns:hc="https://handyorg.github.io/handycontrol"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="{Binding BookListItemViewModel.Title}" Height="450" Width="800">
+        Title="{Binding BookListItemViewModel.Title}" Height="600" Width="900">
     <behaviors:Interaction.Triggers>
         <behaviors:EventTrigger EventName="Loaded">
             <behaviors:InvokeCommandAction Command="{Binding LoadCommandAsync}"></behaviors:InvokeCommandAction>
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
     <Grid Margin="0 10 0 0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
         <hc:LoadingCircle IsRunning="{Binding IsRunning,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"
                           Visibility="{Binding IsRunning,Converter={StaticResource Boolean2VisibilityConverter}}"
                           Grid.RowSpan="2" Panel.ZIndex="10"
                         />
 
-        <Image Cursor="Hand" Grid.Row="0" 
-               Source="{Binding BookListItemViewModel.Cover,UpdateSourceTrigger=PropertyChanged}"></Image>
-
-        <StackPanel Orientation="Vertical" Grid.Column="1">
-            <TextBlock Text="{Binding BookListItemViewModel.Title}" Grid.Column="1" 
-               VerticalAlignment="Center" FontSize="18"
-                       FontWeight="Bold"
-               TextWrapping="Wrap"></TextBlock>
-
-            <TextBlock Text="{Binding BookListItemViewModel.WordNum,StringFormat=单词总数: {0}}" Grid.Column="1" Grid.Row="1"
-               VerticalAlignment="Center" FontSize="12"
-               Foreground="#555"></TextBlock>
-
-            <TextBlock Text="{Binding BookListItemViewModel.Introduce}" TextWrapping="Wrap" Margin="0 20 0 0"></TextBlock>
-        </StackPanel>
-
-        <Border Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
-            <StackPanel Orientation="Horizontal">
-                <Button Content="继续学习" Margin="5" Width="120" Height="35" Cursor="Hand" Style="{StaticResource ButtonPrimary}"></Button>
-                <Button Content="打字30词" Margin="5" Width="120" Height="35" Cursor="Hand" Style="{StaticResource ButtonWarning}"></Button>
-            </StackPanel>
-        </Border>
+        <Frame Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden" BorderThickness="0">
+            
+        </Frame>
     </Grid>
 </Window>

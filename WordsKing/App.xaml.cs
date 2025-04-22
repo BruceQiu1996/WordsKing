@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Windows;
+using WordsKing.Pages;
 using WordsKing.ViewModels;
 using WordsKing.Windows;
 
@@ -27,6 +29,11 @@ namespace WordsKing
 
                 service.AddTransient<BookWindow>();
                 service.AddTransient<BookViewModel>();
+
+                service.AddSingleton<BookDetailPage>();
+                service.AddSingleton<StudyWordPage>();
+                service.AddDbContextFactory<WordKingDbContext>(options =>
+                    options.UseSqlite("Data Source = data.db"));
             });
 
             host = builder.Build();
