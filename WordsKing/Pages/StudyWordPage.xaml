@@ -24,13 +24,22 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0">
-            <TextBlock Text="{Binding WordDesc}" FontSize="18" Margin="5" Background="#eee" Padding="8"></TextBlock>
+            <TextBlock Text="{Binding WordDesc}" FontSize="18" Margin="5 3" Background="#eee" Padding="8"></TextBlock>
             <StackPanel Orientation="Horizontal">
-                
+                <Label Cursor="Hand" Style="{x:Null}">
+                    <Path Data="{StaticResource pass}" Width="25"
+          Height="25" Stretch="Uniform" Stroke="Green">
+                    </Path>
+                </Label>
+
+                <Label Cursor="Hand" Style="{x:Null}">
+                    <Path Data="{StaticResource like}" Width="25"
+          Height="25" Stretch="Uniform" Stroke="Gold" Fill="Gold">
+                    </Path>
+                </Label>
             </StackPanel>
         </StackPanel>
-        <Border Grid.Column="0" Grid.Row="1" Background="#eee" Effect="{StaticResource EffectShadow1}"
-                CornerRadius="3">
+        <hc:Card Grid.Column="0" Grid.Row="1" Background="#eee" Effect="{StaticResource EffectShadow1}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding Word}" Grid.Row="0" Grid.Column="0"
                    FontSize="55" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -105,12 +114,13 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                            <hc:Card BorderThickness="0" Effect="{DynamicResource EffectShadow1}" 
+                                            <hc:Card BorderThickness="0"
                                                      Background="#eee"
                                                      Margin="50 2" ToolTip="{Binding Desc}">
                                                 <hc:Card.Footer>
                                                     <StackPanel Margin="5">
                                                         <TextBlock TextWrapping="Wrap"  
+                                                                   FontSize="15"
                                                                    Text="{Binding TranCn}" 
                                                                    Cursor="Hand"
                                                                    HorizontalAlignment="Left">
@@ -129,7 +139,7 @@
                                                         </TextBlock>
                                                         <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockDefaultSecLight}" 
                                                                TextTrimming="CharacterEllipsis" 
-                                                               Text="{Binding Pos}" Margin="0,6,0,0" HorizontalAlignment="Left"/>
+                                                               Text="{Binding Pos}" Margin="0,6,0,0"  FontSize="15" HorizontalAlignment="Left"/>
                                                     </StackPanel>
                                                 </hc:Card.Footer>
                                             </hc:Card>
@@ -141,9 +151,9 @@
                     </ListBox>
                 </hc:ScrollViewer>
             </StackPanel>
-        </Border>
+        </hc:Card>
 
-        <Border Grid.Column="2" Grid.RowSpan="3" Background="#eee" Margin="10 0  0 0" 
+        <Border Grid.Column="2" Grid.RowSpan="3" Background="Transparent" Margin="5 0  0 0" 
                 Effect="{StaticResource EffectShadow1}">
             <hc:ScrollViewer VerticalScrollBarVisibility="Visible"
                  hc:ScrollViewer.IsPenetrating="True" CanMouseWheel="True"
@@ -176,7 +186,7 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                <hc:Card BorderThickness="0" Effect="{DynamicResource EffectShadow1}" 
+                                                <hc:Card BorderThickness="0"
                                                      Background="#eee" ToolTip="{Binding Desc}" Margin="1">
                                                     <hc:Card.Footer>
                                                         <StackPanel Margin="2">
@@ -242,7 +252,7 @@
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                <hc:Card BorderThickness="0" Effect="{DynamicResource EffectShadow1}" Background="#eee" Margin="1">
+                                                <hc:Card BorderThickness="0" Background="#eee" Margin="1">
                                                     <hc:Card.Footer>
                                                         <StackPanel Margin="2">
                                                             <TextBlock TextWrapping="Wrap"
@@ -282,6 +292,14 @@
                     </GroupBox>
                 </StackPanel>
             </hc:ScrollViewer>
+        </Border>
+
+        <Border Grid.Row="2">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="上一个"></Button>
+                <Button Content="PASS"></Button>
+                <Button Content="下一个"></Button>
+            </StackPanel>
         </Border>
     </Grid>
 </Page>
