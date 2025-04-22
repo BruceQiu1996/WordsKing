@@ -50,6 +50,11 @@
                                Margin="0 0 5 0"
                                Cursor="Hand"/>
                     <Label Name="uklabel" Cursor="Hand">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                <behaviors:InvokeCommandAction Command="{Binding PlayUKVoiceCommandAsync}"></behaviors:InvokeCommandAction>
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
                         <Path Data="{StaticResource laba}" Width="18"
                               Height="18" Stretch="Uniform" Stroke="{Binding ElementName=uklabel,Path=BorderBrush}">
                         </Path>
@@ -71,6 +76,11 @@
                                Cursor="Hand"
                                Color="#d8624c" />
                     <Label Name="uslabel" Cursor="Hand">
+                        <behaviors:Interaction.Triggers>
+                            <behaviors:EventTrigger EventName="MouseLeftButtonDown">
+                                <behaviors:InvokeCommandAction Command="{Binding PlayUSVoiceCommandAsync}"></behaviors:InvokeCommandAction>
+                            </behaviors:EventTrigger>
+                        </behaviors:Interaction.Triggers>
                         <Path Data="{StaticResource laba}"  Width="18"
                               Height="18" Stretch="Uniform"  Stroke="{Binding ElementName=uslabel,Path=BorderBrush}">
                         </Path>
@@ -120,7 +130,7 @@
                                                 <hc:Card.Footer>
                                                     <StackPanel Margin="5">
                                                         <TextBlock TextWrapping="Wrap"  
-                                                                   FontSize="15"
+                                                                   FontSize="18"
                                                                    Text="{Binding TranCn}" 
                                                                    Cursor="Hand"
                                                                    HorizontalAlignment="Left">
@@ -139,7 +149,7 @@
                                                         </TextBlock>
                                                         <TextBlock TextWrapping="NoWrap" Style="{DynamicResource TextBlockDefaultSecLight}" 
                                                                TextTrimming="CharacterEllipsis" 
-                                                               Text="{Binding Pos}" Margin="0,6,0,0"  FontSize="15" HorizontalAlignment="Left"/>
+                                                               Text="{Binding Pos}" Margin="0,6,0,0"  FontSize="16" HorizontalAlignment="Left"/>
                                                     </StackPanel>
                                                 </hc:Card.Footer>
                                             </hc:Card>
@@ -192,7 +202,7 @@
                                                         <StackPanel Margin="2">
                                                             <TextBlock TextWrapping="Wrap"
                                                                        Cursor="Hand"
-                                                                       FontSize="14"
+                                                                       FontSize="16"
                                                                        HorizontalAlignment="Left">
                                                                  <behaviors:Interaction.Behaviors>
                                                                      <behavior:HighlightTextBehavior HighlightWord="{Binding DataContext.Word,RelativeSource={RelativeSource AncestorType=ListBox,Mode=FindAncestor}}"
@@ -257,7 +267,7 @@
                                                         <StackPanel Margin="2">
                                                             <TextBlock TextWrapping="Wrap"
                                                                        Cursor="Hand"
-                                                                       FontSize="14"
+                                                                       FontSize="16"
                                                                        HorizontalAlignment="Left">
                                                                  <behaviors:Interaction.Behaviors>
                                                                      <behavior:HighlightTextBehavior HighlightWord="{Binding DataContext.Word,RelativeSource={RelativeSource AncestorType=ListBox,Mode=FindAncestor}}"
@@ -295,10 +305,33 @@
         </Border>
 
         <Border Grid.Row="2">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="上一个"></Button>
-                <Button Content="PASS"></Button>
-                <Button Content="下一个"></Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Height="35" Width="120" Padding="2" Style="{StaticResource ButtonPrimary}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Cursor="Hand" Style="{x:Null}" Margin="0 0 5 0 ">
+                                <Path Data="{StaticResource last}"  Width="15" Height="15" Stroke="White" Stretch="Uniform" Fill="White">
+                                </Path>
+                            </Label>
+                            <TextBlock Text="上一个" VerticalAlignment="Center"
+                                       FontSize="14" Foreground="White"
+                                       ></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Content="PASS" Height="35" Margin="10 0" Width="120" Style="{StaticResource ButtonWarning}"></Button>
+                <Button Height="35" Width="120" Padding="2" Style="{StaticResource ButtonPrimary}" Command="{Binding NextCommand}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Cursor="Hand" Style="{x:Null}" Margin="0 0 5 0 ">
+                                <Path Data="{StaticResource next}"  Width="15" Height="15" Stroke="White" Stretch="Uniform" Fill="White">
+                                </Path>
+                            </Label>
+                            <TextBlock Text="下一个"  VerticalAlignment="Center" FontSize="14" Foreground="White"
+                       ></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </Border>
     </Grid>

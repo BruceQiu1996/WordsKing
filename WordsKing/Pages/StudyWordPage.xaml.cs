@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WordsKing.ViewModels;
 
 namespace WordsKing.Pages
 {
@@ -9,9 +10,10 @@ namespace WordsKing.Pages
     /// </summary>
     public partial class StudyWordPage : Page
     {
-        public StudyWordPage()
+        public StudyWordPage(StudyWordPageViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
         }
 
         private void ListView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

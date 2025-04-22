@@ -27,7 +27,7 @@ namespace WordsKing.ViewModels
             set => SetProperty(ref _currentPage, value);
         }
 
-        private List<WordModel> wordModels = new List<WordModel>();
+        private List<WordModel> wordModels;
         public AsyncRelayCommand LoadCommandAsync { get; set; }
         public BookListItemViewModel BookListItemViewModel { get; set; }
         public BookViewModel()
@@ -37,7 +37,7 @@ namespace WordsKing.ViewModels
             WeakReferenceMessenger.Default.Register<BookViewModel, string, string>(this, Const.CONTINUE_STYDU, (x, y) =>
             {
                 CurrentPage = App.ServiceProvider.GetRequiredService<StudyWordPage>();
-                CurrentPage.DataContext = new CurrentWordViewModel(wordModels.First());
+                (CurrentPage.DataContext as StudyWordPageViewModel).Load(wordModels);
             });
         }
 
@@ -52,7 +52,7 @@ namespace WordsKing.ViewModels
                 using (JsonTextReader jReader = new JsonTextReader(reader))
                 {
                     jReader.SupportMultipleContent = true;
-
+                    wordModels = new List<WordModel>();
                     while (jReader.Read())
                     {
                         if (jReader.TokenType == JsonToken.StartObject)

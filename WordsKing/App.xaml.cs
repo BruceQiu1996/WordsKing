@@ -32,6 +32,7 @@ namespace WordsKing
 
                 service.AddSingleton<BookDetailPage>();
                 service.AddSingleton<StudyWordPage>();
+                service.AddSingleton<StudyWordPageViewModel>();
                 service.AddDbContextFactory<WordKingDbContext>(options =>
                     options.UseSqlite("Data Source = data.db"));
             });
